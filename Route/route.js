@@ -1,14 +1,15 @@
 import express from "express";
 
-import { catagoryController } from "../Controller/Catagory/CatagoryApiAdd.js";
-import { update } from "../Controller/Catagory/CatagoryApiUpdate.js";
-import { Delete } from "../Controller/Catagory/CatagoryApiDelete.js";
-import { getAllCatagory } from "../Controller/Catagory/CatagoryApiGet.js";
+import {
+    addCatagory,
+    deleteCatagory,
+    updateCateogry,
+    getAllCatagory,
+} from "../Controller/Catagory/catagoriesApi.js";
 let route = express.Router();
-route.use(express.json());
-route.use(express.urlencoded({ extended: true }));
-route.post("/catagory/add", catagoryController);
-route.put("/catagory/update", update);
-route.delete("/catagory/delete", Delete);
+
+route.post("/catagory/add", addCatagory);
+route.put("/catagory/update", updateCateogry);
+route.delete("/catagory/delete/:id", deleteCatagory);
 route.get("/catagory/find", getAllCatagory);
 export { route };

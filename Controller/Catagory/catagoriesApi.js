@@ -1,6 +1,6 @@
 import { catagoryModel } from "../../Model/models.js";
 import { ObjectId } from "bson";
-
+import { responce } from "../responce/response.js";
 // add catagory api
 let addCatagory = async (req, res) => {
     try {
@@ -10,13 +10,12 @@ let addCatagory = async (req, res) => {
         if (!findcatagory) {
             const newCatagory = new catagoryModel({ id, catagory });
             await newCatagory.save();
-
-            res.json({
+            responce(res, {
                 message: "OK",
             });
         } else {
-            res.json({
-                message: "Found",
+            responce(res, {
+                message: "FOUND",
             });
         }
     } catch (error) {
@@ -31,11 +30,11 @@ let deleteCatagory = async (req, res) => {
     try {
         let id = req.params.id;
         await catagoryModel.findOneAndDelete({ id });
-        res.json({
+        responce(res, {
             message: "OK",
         });
     } catch (error) {
-        res.json({
+        responce(res, {
             message: "something wrong",
         });
     }
@@ -47,17 +46,17 @@ let getAllCatagory = async (req, res) => {
     try {
         let allCatagoryList = await catagoryModel.find({});
         if (allCatagoryList) {
-            res.json({
+            responce(res, {
                 message: "successfully get",
                 data: allCatagoryList,
             });
         } else {
-            res.json({
+            responce(res, {
                 message: "No data found",
             });
         }
     } catch (error) {
-        res.json({
+        responce(res, {
             message: "something error",
         });
     }
@@ -76,17 +75,16 @@ let updateCateogry = async (req, res) => {
                 { id },
                 { $set: { catagory } }
             );
-
-            res.json({
+            responce(res, {
                 message: "OK",
             });
         } else {
-            res.json({
+            responce(res, {
                 message: "Found",
             });
         }
     } catch (error) {
-        res.json({
+        responce(res, {
             message: "something wrong",
         });
     }
